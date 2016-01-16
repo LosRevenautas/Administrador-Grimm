@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package administrador;
+package administrador.Main;
+
+import administrador.Pantallas.PantallaPrincipal;
 
 /**
  *
@@ -15,7 +17,8 @@ public class Administrador {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        PantallaPrincipal principal = new PantallaPrincipal();
+        principal.setVisible(true);
     }
     
 }
