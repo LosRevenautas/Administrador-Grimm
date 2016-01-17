@@ -5,15 +5,20 @@
  */
 package administrador.Pantallas;
 
+import static administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto.doCambiar;
+import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
+import administrador.Pantallas.PantallasAbstractas.PantallaAbstractaModulos;
+import administrador.Pantallas.PantallaPrincipal;
+
 /**
  *
  * @author Merlin
  */
-public class PantallaPrincipal extends javax.swing.JFrame {
+public class PantallaPrincipal extends PantallaAbstracta {
 
-        PantallaCaja caja = new PantallaCaja();
-        PantallaStock stock = new PantallaStock();
-        PantallaComandas comandas = new PantallaComandas();
+        PantallaAbstracta caja = new PantallaCaja();
+        PantallaAbstracta stock = new PantallaStock();
+        PantallaAbstracta comandas = new PantallaComandas();
         
     public PantallaPrincipal() {
         initComponents();
@@ -115,21 +120,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnComandasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComandasActionPerformed
-        comandas.setPantalla(this);
-        this.setVisible(false);
-        comandas.setVisible(true);
+        doCambiar(this, comandas);
     }//GEN-LAST:event_btnComandasActionPerformed
 
     private void btnCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCajaActionPerformed
-        caja.setPantalla(this);
-        this.setVisible(false);
-        caja.setVisible(true);
+        doCambiar(this, caja);
     }//GEN-LAST:event_btnCajaActionPerformed
 
     private void btnStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStockActionPerformed
-        stock.setPantalla(this);
-        this.setVisible(false);
-        stock.setVisible(true);
+        doCambiar(this, stock);
     }//GEN-LAST:event_btnStockActionPerformed
 
     /**

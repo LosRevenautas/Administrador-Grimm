@@ -6,6 +6,7 @@
 package administrador.Main;
 
 import administrador.Pantallas.PantallaPrincipal;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -17,8 +18,13 @@ public class Administrador {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+    public void run() {
         PantallaPrincipal principal = new PantallaPrincipal();
         principal.setVisible(true);
+    }
+});
+        
     }
     
 }
