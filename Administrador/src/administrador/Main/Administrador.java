@@ -6,6 +6,7 @@
 package administrador.Main;
 
 import administrador.Pantallas.PantallaPrincipal;
+import administrador.Utils.ReadPropertie;
 import javax.swing.SwingUtilities;
 
 /**
