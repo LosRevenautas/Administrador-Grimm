@@ -5,13 +5,14 @@
  */
 package administrador.Pantallas;
 
-import administrador.Pantallas.PantallasAbstractas.PantallaAbstractaModulos;
+import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
+
 
 /**
  *
  * @author Merlin
  */
-public class PantallaCaja extends PantallaAbstractaModulos {
+public class PantallaCaja extends PantallaAbstracta {
 
     /**
      * Creates new form PantallaCaja

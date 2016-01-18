@@ -6,17 +6,19 @@
 
 package administrador.Pantallas;
 
-import administrador.Pantallas.PantallasAbstractas.PantallaAbstractaModulos;
+import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
+
 
 /**
  *
  * @author Merlin
  */
-public class PantallaComandas extends PantallaAbstractaModulos {
+public class PantallaComandas extends PantallaAbstracta {
 
     /** Creates new form PantallaComandas */
     public PantallaComandas() {
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -28,17 +30,27 @@ public class PantallaComandas extends PantallaAbstractaModulos {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addContainerGap(315, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(266, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
@@ -80,6 +92,7 @@ public class PantallaComandas extends PantallaAbstractaModulos {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 
 }

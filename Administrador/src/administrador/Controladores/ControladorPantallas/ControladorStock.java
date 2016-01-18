@@ -5,13 +5,14 @@
  */
 package administrador.Controladores.ControladorPantallas;
 
-import administrador.Controladores.ControladoresAbstractos.ControladorModulosAbstracto;
+
+import administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto;
 
 
 /**
  *
  * @author Merlin
  */
-public class ControladorStock extends ControladorModulosAbstracto{
+public class ControladorStock extends ControladorPantallaAbstracto{
     
 }
