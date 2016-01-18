@@ -18,6 +18,7 @@ public abstract class PantallaAbstractaModulos extends PantallaAbstracta {
     
     public PantallaAbstractaModulos() {
         initComponents();
+        
     }
 
     /**
@@ -31,7 +32,7 @@ public abstract class PantallaAbstractaModulos extends PantallaAbstracta {
 
         btnVolver = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -56,7 +57,7 @@ public abstract class PantallaAbstractaModulos extends PantallaAbstracta {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(266, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addContainerGap())
@@ -70,7 +71,7 @@ public abstract class PantallaAbstractaModulos extends PantallaAbstracta {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       
+       doCambiar(this, pantallaAnterior);
     }//GEN-LAST:event_formWindowClosed
 
     
