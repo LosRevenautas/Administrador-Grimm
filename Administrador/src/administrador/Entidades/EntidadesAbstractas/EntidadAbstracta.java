@@ -9,6 +9,17 @@ package administrador.Entidades.EntidadesAbstractas;
  *
  * @author Merlin
  */
-public abstract class Usuario extends EntidadAbstracta{
-    
+public abstract class EntidadAbstracta {
+    private int ID = 0;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        if(this.ID == 0){
+        this.ID = ID;
+        }
+        
+    }
 }

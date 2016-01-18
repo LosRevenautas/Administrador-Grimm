@@ -1,0 +1,4 @@
+numMesas=20
+cadenaDeConexion=jdb:mysql://localhost/grimmsdb
+usuario=root
+password=slipknot12
