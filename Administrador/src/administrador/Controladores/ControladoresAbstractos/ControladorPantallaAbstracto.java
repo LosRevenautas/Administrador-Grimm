@@ -13,8 +13,10 @@ import administrador.Pantallas.PantallasAbstractas.PantallaAbstractaModulos;
  * @author Merlin
  */
 public abstract class ControladorPantallaAbstracto {
-    public static void doCambiar(PantallaAbstracta este, PantallaAbstracta anterior){
+
+    public static void doCambiar(PantallaAbstracta este, PantallaAbstracta anterior) {
         anterior.setPantallaAnterior(este);
+        anterior.setBounds(este.getBounds());
         este.setVisible(false);
         anterior.setVisible(true);
     }

@@ -5,13 +5,14 @@
  */
 package administrador.Pantallas;
 
-import administrador.Pantallas.PantallasAbstractas.PantallaAbstractaModulos;
+import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
+
 
 /**
  *
  * @author Merlin
  */
-public class PantallaStock extends PantallaAbstractaModulos {
+public class PantallaStock extends PantallaAbstracta {
 
     /**
      * Creates new form PantallaStock
@@ -29,7 +30,7 @@ public class PantallaStock extends PantallaAbstractaModulos {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
