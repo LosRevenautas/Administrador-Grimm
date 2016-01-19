@@ -14,9 +14,10 @@ import java.util.Map;
  *
  * @author Merlin
  */
-public class Receta extends EntidadAbstracta{
+public class Receta extends EntidadAbstracta {
+
     private Map<Producto, Integer> prodList = new LinkedHashMap<Producto, Integer>();
-    private String nombre ;
+    private String nombre;
     private BigDecimal precio;
 
     public Receta(String nombre, BigDecimal precio, LinkedHashMap prodList) {
@@ -28,17 +29,15 @@ public class Receta extends EntidadAbstracta{
     public Map getProdList() {
         return prodList;
     }
-    
-    public void addProducto(Producto producto, int cantidad){
-        if(prodList.containsKey(producto)){
-        prodList.put(producto, prodList.get(producto) + cantidad);
-        }
-        else{
-        prodList.put(producto, cantidad);
+
+    public void addProducto(Producto producto, int cantidad) {
+        if (prodList.containsKey(producto)) {
+            prodList.put(producto, prodList.get(producto) + cantidad);
+        } else {
+            prodList.put(producto, cantidad);
         }
     }
 
-    
     public String getNombre() {
         return nombre;
     }
@@ -54,6 +53,5 @@ public class Receta extends EntidadAbstracta{
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
-    
-    
+
 }
