@@ -6,14 +6,17 @@
 package administrador.Controladores.ControladoresAbstractos;
 
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
-import administrador.Pantallas.PantallasAbstractas.PantallaAbstractaModulos;
 
 /**
  *
  * @author Merlin
  */
 public abstract class ControladorPantallaAbstracto {
-
+        /**
+         * Cambia de la ventana actual a la ventana anterior, replicando tamaño y posicion.
+         * @param este la ventana actual
+         * @param anterior la ventana a la que nos vamos a cambiar
+         */
     public static void doCambiar(PantallaAbstracta este, PantallaAbstracta anterior) {
         anterior.setPantallaAnterior(este);
         anterior.setBounds(este.getBounds());

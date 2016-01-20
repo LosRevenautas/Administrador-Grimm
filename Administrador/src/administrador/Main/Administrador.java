@@ -5,6 +5,7 @@
  */
 package administrador.Main;
 
+import administrador.Controladores.ControladorPantallas.ControladorComandas;
 import administrador.Pantallas.PantallaPrincipal;
 import administrador.Utils.ReadPropertie;
 import javax.swing.SwingUtilities;
@@ -20,12 +21,14 @@ public class Administrador {
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
-    public void run() {
-        PantallaPrincipal principal = new PantallaPrincipal();
-        principal.setVisible(true);
+            public void run() {
+                PantallaPrincipal principal = new PantallaPrincipal();
+                principal.setVisible(true);
+
+            }
+
+        });
+
     }
-});
-        
-    }
-    
+
 }

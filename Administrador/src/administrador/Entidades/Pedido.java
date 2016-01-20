@@ -21,8 +21,8 @@ public class Pedido extends EntidadAbstracta {
     private byte cubiertos;
     private final Calendar fecha = Calendar.getInstance();
     private String estado;
-    Map<Producto, Integer> bebidas = new LinkedHashMap<Producto, Integer>();
-    Map<Receta, Integer> comidas = new LinkedHashMap<Receta, Integer>();
+    Map<Producto, Integer> bebidas = new LinkedHashMap<>();
+    Map<Receta, Integer> comidas = new LinkedHashMap<>();
 
     public int getIdMesa() {
         return idMesa;

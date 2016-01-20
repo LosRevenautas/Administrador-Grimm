@@ -5,9 +5,9 @@
  */
 package administrador.Pantallas;
 
+import administrador.Controladores.ControladorPantallas.ControladorComandas;
 import static administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto.doCambiar;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
-
 
 /**
  *
@@ -15,13 +15,14 @@ import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
  */
 public class PantallaPrincipal extends PantallaAbstracta {
 
-        PantallaAbstracta caja = new PantallaCaja();
-        PantallaAbstracta stock = new PantallaStock();
-        PantallaAbstracta comandas = new PantallaComandas();
-        
+    PantallaAbstracta caja = new PantallaCaja();
+    PantallaAbstracta stock = new PantallaStock();
+    PantallaAbstracta comandas = new PantallaComandas();
+    PantallaAbstracta admin = new PantallaAdmin();
+
     public PantallaPrincipal() {
         initComponents();
-        
+
     }
 
     /**
@@ -37,6 +38,7 @@ public class PantallaPrincipal extends PantallaAbstracta {
         btnComandas = new javax.swing.JButton();
         btnCaja = new javax.swing.JButton();
         btnStock = new javax.swing.JButton();
+        btnAdmin = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -66,6 +68,13 @@ public class PantallaPrincipal extends PantallaAbstracta {
             }
         });
 
+        btnAdmin.setText("Admin");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -75,7 +84,8 @@ public class PantallaPrincipal extends PantallaAbstracta {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnComandas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,7 +97,9 @@ public class PantallaPrincipal extends PantallaAbstracta {
                 .addComponent(btnCaja)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnStock)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAdmin)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -130,6 +142,10 @@ public class PantallaPrincipal extends PantallaAbstracta {
         doCambiar(this, stock);
     }//GEN-LAST:event_btnStockActionPerformed
 
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        doCambiar(this, admin);
+    }//GEN-LAST:event_btnAdminActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -167,6 +183,7 @@ public class PantallaPrincipal extends PantallaAbstracta {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnCaja;
     private javax.swing.JButton btnComandas;
     private javax.swing.JButton btnStock;
