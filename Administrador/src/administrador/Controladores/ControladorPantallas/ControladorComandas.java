@@ -78,13 +78,16 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     }
 
     /**
-     *
+     * Respuesta al click en una mesa. Verifica el estado de la misma y muestra el panel correspondiente
      * @param evt
      */
     public void onClick(ActionEvent evt) {
+        //boton apretado
         JButton btnClick = (JButton) evt.getSource();
         Mesa clickedMesa = Contenedor.LISTMESA.get(Integer.valueOf(btnClick.getText()));
+        //verifica si la mesa esta ocupada
         if (clickedMesa.isOcupada()) {
+            //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
             pedidoActual = clickedMesa.getPedido();
             ((JLabel) pnlPedidos.getComponent(2)).setText(String.valueOf(pedidoActual.getIdMesa()));
             System.out.println(String.valueOf(pedidoActual.getIdMesa()));
@@ -93,6 +96,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
             ((JLabel) pnlPedidos.getComponent(5)).setText(String.valueOf(pedidoActual.getCubiertos()));
             System.out.println(String.valueOf(pedidoActual.getCubiertos()));
             JOptionPane.showMessageDialog(comandas, pnlPedidos, "Modificar mesa", JOptionPane.PLAIN_MESSAGE);
+            //si la mesa esta vacia muestra ventana para habilitarla
         } else {
             layoutHabilitar.setHgap(10);
             layoutHabilitar.setVgap(10);
@@ -103,6 +107,8 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
             panelHabilitar.add(cubierto);
             panelHabilitar.add(txtCubiertos);
             eleccion = JOptionPane.showOptionDialog(comandas, panelHabilitar, "Habilitar Mesa", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            //si se habilita la mesa se la marca como ocupada, se crea el pedido correspondiente con los datos de la mesa, el mozo y los cubiertos
+            //
             if (eleccion == 0) {
                 try {
                     clickedMesa.setOcupada(true);
