@@ -9,6 +9,7 @@ import administrador.Controladores.ControladoresAbstractos.ControladorPantallaAb
 import administrador.Entidades.EntidadesAbstractas.Contenedor;
 import administrador.Entidades.Mesa;
 import administrador.Entidades.Pedido;
+import administrador.Pantallas.CargaPedidos;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 import administrador.Utils.ReadPropertie;
 import java.awt.Color;
@@ -41,6 +42,8 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     int eleccion;
     int numMoso;
     int numCubiertos;
+    private CargaPedidos pnlPedidos = new CargaPedidos();
+    Pedido pedidoActual;
 
     /**
      * Setea las mesas configuradas en config.properties. Inicializa el panel y
@@ -73,17 +76,24 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
         comandas.pack();
         return listBtnMesas;
     }
+
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     public void onClick(ActionEvent evt) {
         JButton btnClick = (JButton) evt.getSource();
         Mesa clickedMesa = Contenedor.LISTMESA.get(Integer.valueOf(btnClick.getText()));
         if (clickedMesa.isOcupada()) {
-            JOptionPane.showMessageDialog(comandas, "La mesa esta ocupada", "Modificar mesa", JOptionPane.PLAIN_MESSAGE);
+            pedidoActual = clickedMesa.getPedido();
+            ((JLabel) pnlPedidos.getComponent(2)).setText(String.valueOf(pedidoActual.getIdMesa()));
+            System.out.println(String.valueOf(pedidoActual.getIdMesa()));
+            ((JLabel) pnlPedidos.getComponent(4)).setText(String.valueOf(pedidoActual.getIdMozo()));
+            System.out.println(String.valueOf(pedidoActual.getIdMozo()));
+            ((JLabel) pnlPedidos.getComponent(5)).setText(String.valueOf(pedidoActual.getCubiertos()));
+            System.out.println(String.valueOf(pedidoActual.getCubiertos()));
+            JOptionPane.showMessageDialog(comandas, pnlPedidos, "Modificar mesa", JOptionPane.PLAIN_MESSAGE);
         } else {
-            clickedMesa.setOcupada(true);
             layoutHabilitar.setHgap(10);
             layoutHabilitar.setVgap(10);
             panelHabilitar.setLayout(layoutHabilitar);
@@ -92,25 +102,27 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
             panelHabilitar.add(txtMoso);
             panelHabilitar.add(cubierto);
             panelHabilitar.add(txtCubiertos);
-            eleccion = JOptionPane.showOptionDialog(comandas, panelHabilitar, "Habilitar Mesa",JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE , null, null, null);
-            if(eleccion == 0){
-                try{
-                numMoso = Integer.valueOf(txtMoso.getText());
-                numCubiertos = Integer.valueOf(txtCubiertos.getText());
-                Pedido nuevoPedido = new Pedido((byte)clickedMesa.getNumMesa(), (byte)numMoso, (byte)numCubiertos, "Habilitada");
-                Contenedor.LISTPEDIDO.add(nuevoPedido);
-                btnClick.setBackground(Color.GREEN);
-                }
-                catch(NumberFormatException ext){
+            eleccion = JOptionPane.showOptionDialog(comandas, panelHabilitar, "Habilitar Mesa", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+            if (eleccion == 0) {
+                try {
+                    clickedMesa.setOcupada(true);
+                    numMoso = Integer.valueOf(txtMoso.getText());
+                    numCubiertos = Integer.valueOf(txtCubiertos.getText());
+                    pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, "Habilitada");
+                    Contenedor.LISTPEDIDO.add(pedidoActual);
+                    clickedMesa.setPedido(pedidoActual);
+                    System.out.println(pedidoActual);
+                    System.out.println(Contenedor.LISTPEDIDO.get(0));
+                    btnClick.setBackground(Color.GREEN);
+                } catch (NumberFormatException ext) {
                     //A completar la respuesta a la excepcion
-                ext.printStackTrace();
+                    ext.printStackTrace();
                 }
-                
+
+            } else {
+                //no hacer nada
             }
-            else{
-            //no hacer nada
-            }
-            
+
         }
 
     }
