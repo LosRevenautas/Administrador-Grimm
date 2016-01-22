@@ -12,8 +12,11 @@ import administrador.Entidades.Pedido;
 import administrador.Pantallas.CargaPedidos;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 import administrador.Utils.ReadPropertie;
+import com.sun.glass.events.KeyEvent;
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -57,7 +60,6 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     public ArrayList<JButton> initMesas(PantallaAbstracta comandas, JPanel panelMesas) {
         numMesas = Integer.valueOf(reader.getPropertie("numMesas"));
         listBtnMesas = new ArrayList<>(numMesas);
-
         this.comandas = comandas;
         panelMesas.setLayout(pnl2Layout);
         pnl2Layout.setHgap(10);
@@ -78,7 +80,9 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     }
 
     /**
-     * Respuesta al click en una mesa. Verifica el estado de la misma y muestra el panel correspondiente
+     * Respuesta al click en una mesa. Verifica el estado de la misma y muestra
+     * el panel correspondiente
+     *
      * @param evt
      */
     public void onClick(ActionEvent evt) {
@@ -90,11 +94,8 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
             //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
             pedidoActual = clickedMesa.getPedido();
             ((JLabel) pnlPedidos.getComponent(2)).setText(String.valueOf(pedidoActual.getIdMesa()));
-            System.out.println(String.valueOf(pedidoActual.getIdMesa()));
             ((JLabel) pnlPedidos.getComponent(4)).setText(String.valueOf(pedidoActual.getIdMozo()));
-            System.out.println(String.valueOf(pedidoActual.getIdMozo()));
             ((JLabel) pnlPedidos.getComponent(5)).setText(String.valueOf(pedidoActual.getCubiertos()));
-            System.out.println(String.valueOf(pedidoActual.getCubiertos()));
             JOptionPane.showMessageDialog(comandas, pnlPedidos, "Modificar mesa", JOptionPane.PLAIN_MESSAGE);
             //si la mesa esta vacia muestra ventana para habilitarla
         } else {
@@ -106,10 +107,12 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
             panelHabilitar.add(txtMoso);
             panelHabilitar.add(cubierto);
             panelHabilitar.add(txtCubiertos);
+
             eleccion = JOptionPane.showOptionDialog(comandas, panelHabilitar, "Habilitar Mesa", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
             //si se habilita la mesa se la marca como ocupada, se crea el pedido correspondiente con los datos de la mesa, el mozo y los cubiertos
             //
-            if (eleccion == 0) {
+            if (eleccion
+                    == 0) {
                 try {
                     clickedMesa.setOcupada(true);
                     numMoso = Integer.valueOf(txtMoso.getText());
@@ -117,8 +120,6 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
                     pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, "Habilitada");
                     Contenedor.LISTPEDIDO.add(pedidoActual);
                     clickedMesa.setPedido(pedidoActual);
-                    System.out.println(pedidoActual);
-                    System.out.println(Contenedor.LISTPEDIDO.get(0));
                     btnClick.setBackground(Color.GREEN);
                 } catch (NumberFormatException ext) {
                     //A completar la respuesta a la excepcion
