@@ -8,7 +8,7 @@ package administrador.Controladores.ControladoresAbstractos;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 
 /**
- *
+ * Clase padre de todos los otros controladores. Implementa el metodo doCambiar.
  * @author Merlin
  */
 public abstract class ControladorPantallaAbstracto {

@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- *
+ * Clase padre de Producto y Receta. Utilizada para englobar ambas en las situaciones donde no es necesario tratar la 
+ * receta como tal y para implementar comportamientos correspondientes a las dos.
  * @author Merlin
  */
 public class Consumision extends EntidadAbstracta {
@@ -48,7 +49,7 @@ public class Consumision extends EntidadAbstracta {
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
-
+    
     public void setPrecio(String precio) {
         this.precio = new BigDecimal(precio);
         this.precio = this.precio.setScale(2, RoundingMode.UP);

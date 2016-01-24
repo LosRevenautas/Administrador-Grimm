@@ -13,11 +13,8 @@ import administrador.Entidades.Pedido;
 import administrador.Pantallas.Paneles.CargaPedidos;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 import administrador.Utils.ReadPropertie;
-import com.sun.glass.events.KeyEvent;
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -48,7 +45,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     int eleccion;
     int numMoso;
     int numCubiertos;
-    private CargaPedidos pnlPedidos = new CargaPedidos();
+    private final CargaPedidos pnlPedidos = new CargaPedidos();
     Pedido pedidoActual;
 
     /**
@@ -84,7 +81,14 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
 
     /**
      * Respuesta al click en una mesa. Verifica el estado de la misma y muestra
-     * el panel correspondiente
+     * el panel correspondiente Si la mesa esta ocupada: Obtiene el pedido de la
+     * mesa. Carga los valores en el Panel. y muestra el panel CargaPedidos para
+     * modificar el pedido de la mesa. Si la mesa no estubiera ocupada: Prepara
+     * el panel para mostrar la ventana de inicializacion de mesa. Si en la
+     * ventana se preciona "No". vuelve a la ventana PantallaComandas. Si se
+     * preciona "Si" crea un pedido con los datos base ingresados añade el
+     * pedido a la lista global y a la mesa. Por ultimo marca el boton en verde
+     * para mostrar que la mesa esta ocupada.
      *
      * @param evt
      */
@@ -138,7 +142,15 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
         }
 
     }
-    public static BigDecimal calcMonto(Pedido pedido){
+
+    /**
+     * Dado un pedido calcula la sumatoria del valor de todas las consumisiones
+     * del mismo con una presicion de 2 decimales y redondeo hacia arriba.
+     *
+     * @param pedido El pedido sobre el cual se efectuara la sumatoria.
+     * @return
+     */
+    public static BigDecimal calcMonto(Pedido pedido) {
         BigDecimal total = new BigDecimal(0);
         total = total.setScale(2, RoundingMode.UP);
         BigDecimal multiplicand;

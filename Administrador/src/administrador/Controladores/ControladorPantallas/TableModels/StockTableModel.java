@@ -6,11 +6,10 @@
 package administrador.Controladores.ControladorPantallas.TableModels;
 
 import administrador.Entidades.EntidadesAbstractas.Contenedor;
-import administrador.Entidades.Producto;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Modelo de tabla utilizado para reprecentar la Tabla de PantallaStock
  * @author Merlin
  */
 public class StockTableModel extends AbstractTableModel {

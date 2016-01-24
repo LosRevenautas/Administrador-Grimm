@@ -6,13 +6,11 @@
 package administrador.Controladores.ControladorPantallas;
 
 import administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto;
-import administrador.Pantallas.PantallaComandas;
-import administrador.Pantallas.PantallaPrincipal;
 
 /**
  *
  * @author Merlin
  */
-public class ControladorPrincipal extends ControladorPantallaAbstracto{
-    
+public class ControladorPrincipal extends ControladorPantallaAbstracto {
+
 }

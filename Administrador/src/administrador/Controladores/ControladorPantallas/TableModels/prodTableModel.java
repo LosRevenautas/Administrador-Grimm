@@ -5,14 +5,11 @@
  */
 package administrador.Controladores.ControladorPantallas.TableModels;
 
-import administrador.Entidades.EntidadesAbstractas.Consumision;
 import administrador.Entidades.Pedido;
-import java.util.ArrayList;
-import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
+ * Modelo de tabla utilizado para reprecentar la Tabla del panel CargaPedidos 
  * @author Merlin
  */
 public class prodTableModel extends AbstractTableModel {

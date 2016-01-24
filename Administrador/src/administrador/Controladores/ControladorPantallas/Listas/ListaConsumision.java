@@ -10,6 +10,8 @@ import administrador.Entidades.EntidadesAbstractas.Contenedor;
 import java.util.ArrayList;
 
 /**
+ * Lista que contiene una lista de consumisiones y una lista paralela de
+ * cantidades. Simula una sola lista que contiene ambos valores.
  *
  * @author Merlin
  */
@@ -39,14 +41,40 @@ public class ListaConsumision {
         this.listCantidad = new ArrayList<>();
     }
 
+    /**
+     * Devuelve la consumision en la posicion i. Si se ejecuta el metodo
+     * getCantidad con el mismo valor i se se obtiene la cantidad de esa
+     * consumision cargada.
+     *
+     * @param i Posicion de la consumision a obtener
+     * @return Un Objeto Consumision previamente guardado en la posicion i
+     */
     public Consumision getConsumision(int i) {
         return listConsum.get(i);
     }
 
+    /**
+     * Devuelve la cantidad de una consumision. El valor i es el mismo que en el
+     * metodo getConsumision.
+     *
+     * @param i La posicion donde se guardo la consumision cuya cantidad
+     * queremos determinar
+     * @return Un objeto Integer con el valor de la consumicion en la posicion i
+     */
     public Integer getCantidad(int i) {
         return listCantidad.get(i);
     }
 
+    /**
+     * Metodo Syncronizado. De no existir en la lista añade la consumision y la
+     * cantidad en el ultimo lugar de las listas. Por ser sincronizado este
+     * metodo se asegura que los valor de ambas listas siempre se correspondan.
+     * Si la consumision ya esta cargada, le suma el valor de la cantidad
+     * ingresada a la cantidad existente.
+     *
+     * @param consumision La consumision a agregar o modificar
+     * @param cantidad La cantida de la consumision a agregar.
+     */
     public synchronized void addConsumision(Consumision consumision, int cantidad) {
         if (!(listConsum.contains(consumision))) {
             listConsum.add(consumision);
@@ -57,31 +85,44 @@ public class ListaConsumision {
         }
     }
 
+    /**
+     * Metodo Syncronizado. De no existir en la lista añade la consumision y la
+     * cantidad en el ultimo lugar de las listas. Por ser sincronizado este
+     * metodo se asegura que los valor de ambas listas siempre se correspondan.
+     * Si la consumision ya esta cargada, le suma el valor de la cantidad
+     * ingresada a la cantidad existente. A diferencia del metodo normal, este
+     * metodo maneja la conversion de String a los valores correspondientes
+     * internamente.
+     *
+     * @param nombConsumision La consumision a agregar o modificar
+     * @param strCantidad La cantida de la consumision a agregar.
+     */
     public synchronized void addConsumision(String nombConsumision, String strCantidad) {
-        try{
+        try {
             int cantidad = Integer.valueOf(strCantidad);
-        Consumision consumision = null;
-        for (Consumision tempConsum : Contenedor.LISTPRODUCTO) {
-            if (tempConsum.getNombre().equals(nombConsumision)) {
-                consumision = tempConsum;
-                break;
+            Consumision consumision = null;
+            for (Consumision tempConsum : Contenedor.LISTPRODUCTO) {
+                if (tempConsum.getNombre().equals(nombConsumision)) {
+                    consumision = tempConsum;
+                    break;
+                }
             }
 
-        }
-
-        if (!(listConsum.contains(consumision))) {
-            listConsum.add(consumision);
-            listCantidad.add(cantidad);
-        } else {
-            Integer cantActual = listCantidad.get(listConsum.indexOf(consumision)) + cantidad;
-            listCantidad.set(listConsum.indexOf(consumision), cantActual);
-        }
-        }
-        catch(NumberFormatException e){
+            if (!(listConsum.contains(consumision))) {
+                listConsum.add(consumision);
+                listCantidad.add(cantidad);
+            } else {
+                Integer cantActual = listCantidad.get(listConsum.indexOf(consumision)) + cantidad;
+                listCantidad.set(listConsum.indexOf(consumision), cantActual);
+            }
+        } catch (NumberFormatException e) {
             //pendiente de implementar
         }
-        }
-
+    }
+    /**
+     * Busca y de existir borra la consumision dada como parametro.
+     * @param consumision La consumision a borrar.
+     */
     public synchronized void delConsumision(Consumision consumision) {
         for (int i = 0; i < listConsum.size(); i++) {
             if (listConsum.get(i).getNombre().equals(consumision.getNombre())) {
@@ -90,9 +131,12 @@ public class ListaConsumision {
             }
         }
     }
-
+    /**
+     * devuelve el tamaño de la lista.
+     * @return 
+     */
     public int getSize() {
         return listConsum.size();
     }
-    
+
 }
