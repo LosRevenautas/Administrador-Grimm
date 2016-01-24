@@ -5,6 +5,8 @@
  */
 package administrador.Entidades;
 
+import administrador.Controladores.ControladorPantallas.Listas.ListaConsumision;
+import administrador.Entidades.EntidadesAbstractas.Consumision;
 import administrador.Entidades.EntidadesAbstractas.EntidadAbstracta;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
@@ -16,19 +18,27 @@ import java.util.Map;
  */
 public class Pedido extends EntidadAbstracta {
 
-    private int idMesa;
+    private byte idMesa;
     private byte idMozo;
     private byte cubiertos;
-    private final Calendar fecha = Calendar.getInstance();
+    private final Calendar fecha;
     private String estado;
-    Map<Producto, Integer> bebidas = new LinkedHashMap<>();
-    Map<Receta, Integer> comidas = new LinkedHashMap<>();
+    ListaConsumision listConsum;
 
-    public int getIdMesa() {
+    public Pedido(byte idMesa, byte idMozo, byte cubiertos, String estado) {
+        fecha = Calendar.getInstance();
+        this.idMesa = idMesa;
+        this.idMozo = idMozo;
+        this.cubiertos = cubiertos;
+        this.estado = estado;
+        listConsum = new ListaConsumision();
+    }
+
+    public byte getIdMesa() {
         return idMesa;
     }
 
-    public void setIdMesa(int idMesa) {
+    public void setIdMesa(byte idMesa) {
         this.idMesa = idMesa;
     }
 
@@ -56,28 +66,8 @@ public class Pedido extends EntidadAbstracta {
         this.estado = estado;
     }
 
-    public Map<Producto, Integer> getBebidas() {
-        return bebidas;
-    }
-
-    public void addBebidas(Producto bebida, int cantidad) {
-        if (bebidas.containsKey(bebida)) {
-            bebidas.put(bebida, bebidas.get(bebida) + cantidad);
-        } else {
-            bebidas.put(bebida, cantidad);
-        }
-    }
-
-    public Map<Receta, Integer> getComidas() {
-        return comidas;
-    }
-
-    public void addComidas(Receta comida, int cantidad) {
-        if (comidas.containsKey(comida)) {
-            comidas.put(comida, comidas.get(comida) + cantidad);
-        } else {
-            comidas.put(comida, cantidad);
-        }
+    public ListaConsumision getListaConsum() {
+        return listConsum;
     }
 
 }

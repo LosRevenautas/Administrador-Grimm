@@ -6,8 +6,10 @@
 package administrador.Main;
 
 import administrador.Controladores.ControladorPantallas.ControladorComandas;
+import administrador.Entidades.Mesa;
 import administrador.Pantallas.PantallaPrincipal;
 import administrador.Utils.ReadPropertie;
+import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
 /**
@@ -16,10 +18,17 @@ import javax.swing.SwingUtilities;
  */
 public class Administrador {
 
+    private final ArrayList<Mesa> listMesas = new ArrayList<>();
+
+    public ArrayList<Mesa> setMesas() {
+        return listMesas;
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 PantallaPrincipal principal = new PantallaPrincipal();

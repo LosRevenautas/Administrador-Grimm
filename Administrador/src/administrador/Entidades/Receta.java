@@ -5,6 +5,7 @@
  */
 package administrador.Entidades;
 
+import administrador.Entidades.EntidadesAbstractas.Consumision;
 import administrador.Entidades.EntidadesAbstractas.EntidadAbstracta;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -14,15 +15,14 @@ import java.util.Map;
  *
  * @author Merlin
  */
-public class Receta extends EntidadAbstracta {
+public class Receta extends Consumision {
 
     private Map<Producto, Integer> prodList = new LinkedHashMap<Producto, Integer>();
     private String nombre;
     private BigDecimal precio;
 
-    public Receta(String nombre, BigDecimal precio, LinkedHashMap prodList) {
-        this.nombre = nombre;
-        this.precio = precio;
+    public Receta(String nombre, String precio, LinkedHashMap prodList) {
+        super(nombre, precio, 0);
         this.prodList = prodList;
     }
 
@@ -36,22 +36,6 @@ public class Receta extends EntidadAbstracta {
         } else {
             prodList.put(producto, cantidad);
         }
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public BigDecimal getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
     }
 
 }

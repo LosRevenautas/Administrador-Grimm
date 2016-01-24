@@ -5,11 +5,15 @@
  */
 package administrador.Entidades.EntidadesAbstractas;
 
+import administrador.Entidades.Mesa;
+import java.util.ArrayList;
+
 /**
  *
  * @author Merlin
  */
 public abstract class EntidadAbstracta {
+
     private int ID = 0;
 
     public int getID() {
@@ -17,9 +21,9 @@ public abstract class EntidadAbstracta {
     }
 
     public void setID(int ID) {
-        if(this.ID == 0){
-        this.ID = ID;
+        if (this.ID == 0) {
+            this.ID = ID;
         }
-        
+
     }
 }

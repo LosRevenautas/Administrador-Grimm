@@ -6,10 +6,11 @@
 package administrador.Controladores.ControladorPantallas;
 
 import administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto;
+import administrador.Entidades.EntidadesAbstractas.Consumision;
 import administrador.Entidades.EntidadesAbstractas.Contenedor;
 import administrador.Entidades.Mesa;
 import administrador.Entidades.Pedido;
-import administrador.Pantallas.CargaPedidos;
+import administrador.Pantallas.Paneles.CargaPedidos;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 import administrador.Utils.ReadPropertie;
 import com.sun.glass.events.KeyEvent;
@@ -19,6 +20,8 @@ import java.awt.GridLayout;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -93,9 +96,10 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
         if (clickedMesa.isOcupada()) {
             //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
             pedidoActual = clickedMesa.getPedido();
-            ((JLabel) pnlPedidos.getComponent(2)).setText(String.valueOf(pedidoActual.getIdMesa()));
-            ((JLabel) pnlPedidos.getComponent(4)).setText(String.valueOf(pedidoActual.getIdMozo()));
-            ((JLabel) pnlPedidos.getComponent(5)).setText(String.valueOf(pedidoActual.getCubiertos()));
+            pnlPedidos.setTextMesa(String.valueOf(pedidoActual.getIdMesa()));
+            pnlPedidos.setTextMozo(String.valueOf(pedidoActual.getIdMozo()));
+            pnlPedidos.setTextCubierto(String.valueOf(pedidoActual.getCubiertos()));
+            pnlPedidos.setPedido(pedidoActual);
             JOptionPane.showMessageDialog(comandas, pnlPedidos, "Modificar mesa", JOptionPane.PLAIN_MESSAGE);
             //si la mesa esta vacia muestra ventana para habilitarla
         } else {
@@ -120,6 +124,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
                     pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, "Habilitada");
                     Contenedor.LISTPEDIDO.add(pedidoActual);
                     clickedMesa.setPedido(pedidoActual);
+                    pnlPedidos.setPedido(pedidoActual);
                     btnClick.setBackground(Color.GREEN);
                 } catch (NumberFormatException ext) {
                     //A completar la respuesta a la excepcion
@@ -133,5 +138,19 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
         }
 
     }
-
+    public static BigDecimal calcMonto(Pedido pedido){
+        BigDecimal total = new BigDecimal(0);
+        total = total.setScale(2, RoundingMode.UP);
+        BigDecimal multiplicand;
+        Consumision consum;
+        int cant;
+        for (int i = 0; i < pedido.getListaConsum().getListConsum().size(); i++) {
+            consum = pedido.getListaConsum().getConsumision(i);
+            cant = pedido.getListaConsum().getCantidad(i);
+            multiplicand = new BigDecimal(cant);
+            multiplicand = multiplicand.setScale(1, RoundingMode.DOWN);
+            total = total.add(consum.getPrecio().multiply(multiplicand));
+        }
+        return total.setScale(2, RoundingMode.UP);
+    }
 }
