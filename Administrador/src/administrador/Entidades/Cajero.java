@@ -11,6 +11,6 @@ import administrador.Entidades.EntidadesAbstractas.Usuario;
  *
  * @author Merlin
  */
-public class Cajero extends Usuario{
-    
+public class Cajero extends Usuario {
+
 }

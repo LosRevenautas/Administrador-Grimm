@@ -6,12 +6,15 @@
 package administrador.Pantallas.PantallasAbstractas;
 
 /**
+ * Pantalla padre de todas las otras pantallas. Implementa un objeto pantalla
+ * anterior para mantener una referencia a la pantalla previa a esta.
  *
  * @author Merlin
  */
 public abstract class PantallaAbstracta extends javax.swing.JFrame {
 
     protected PantallaAbstracta pantallaAnterior;
+
     public PantallaAbstracta() {
         initComponents();
     }
@@ -40,13 +43,25 @@ public abstract class PantallaAbstracta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void setPantallaAnterior(PantallaAbstracta pantallaAnterior){
-    this.pantallaAnterior = pantallaAnterior;
+    /**
+     * Carga la pantalla de la que proviene el usuario.
+     *
+     * @param pantallaAnterior Un objeto PantallaAbstracta, que corresponde a la
+     * pantalla desde la que se accede a esta pantalla.
+     */
+    public void setPantallaAnterior(PantallaAbstracta pantallaAnterior) {
+        this.pantallaAnterior = pantallaAnterior;
     }
-    public PantallaAbstracta getPantallaAnterior(){
+
+    /**
+     * Devuelve la pantalla abierta previamente a la actual
+     *
+     * @return
+     */
+    public PantallaAbstracta getPantallaAnterior() {
         return pantallaAnterior;
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -72,7 +87,6 @@ public abstract class PantallaAbstracta extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

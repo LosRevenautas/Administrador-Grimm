@@ -5,10 +5,9 @@
  */
 package administrador.Entidades.EntidadesAbstractas;
 
-import administrador.Entidades.Mesa;
-import java.util.ArrayList;
-
 /**
+ * Clase padre de todas las entidades. Encargada de administrar los IDs y
+ * habilitar polimorfismo.
  *
  * @author Merlin
  */

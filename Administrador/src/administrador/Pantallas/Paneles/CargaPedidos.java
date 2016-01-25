@@ -11,6 +11,8 @@ import administrador.Entidades.EntidadesAbstractas.Contenedor;
 import administrador.Entidades.Pedido;
 
 /**
+ * Panel utilizado para modificar un pedido existente. Provee una lista de los
+ * productos consumidos e informacion relevante a la mesa
  *
  * @author Merlin
  */
@@ -18,13 +20,21 @@ public class CargaPedidos extends javax.swing.JPanel {
 
     prodTableModel model = new prodTableModel();
     Pedido pedido;
+
     public CargaPedidos() {
         initComponents();
         tblProductos.setModel(model);
-        
+
     }
 
-    public void setPedido(Pedido pedido){
+    /**
+     * Asigna un pedido a este panel para ser administrado. Añade el pedido al
+     * modelo de tabla para poder llenar los datos. Y setea el combo box con los
+     * productos disponibles en stock.
+     *
+     * @param pedido El pedido a ser mostrado por el panel
+     */
+    public void setPedido(Pedido pedido) {
         model.setSelecPedido(pedido);
         this.pedido = pedido;
         cmbBoxStock.removeAllItems();
@@ -32,18 +42,34 @@ public class CargaPedidos extends javax.swing.JPanel {
             cmbBoxStock.addItem(Contenedor.LISTPRODUCTO.get(i).getNombre());
         }
     }
-    
-    public void setTextMozo(String text){
-    lblMozo.setText(text);
+
+    /**
+     * Permite modificar la etiqueta que muestra el numbero de mozo
+     *
+     * @param text El numbero de moso a mostrar en la etiqueta.
+     */
+    public void setTextMozo(String text) {
+        lblMozo.setText(text);
     }
-    
-    public void setTextCubierto(String text){
-    lblCubierto.setText(text);
+
+    /**
+     * Permite modificar la etiqueta que muestra el numbero de comenzales
+     *
+     * @param text El numbero de comensales a mostrar en la etiqueta.
+     */
+    public void setTextCubierto(String text) {
+        lblCubierto.setText(text);
     }
-    
-    public void setTextMesa(String text){
-    lblMesa.setText(text);
+
+    /**
+     * Permite modificar la etiqueta que muestra el numbero de mesa
+     *
+     * @param text El numbero de mesa a mostrar en la etiqueta.
+     */
+    public void setTextMesa(String text) {
+        lblMesa.setText(text);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,13 +220,13 @@ public class CargaPedidos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresaProdActionPerformed
-    pedido.getListaConsum().addConsumision((String)cmbBoxStock.getSelectedItem(), txtCantProd.getText());
-    lblMonto.setText(calcMonto(pedido).toString());
-    model.fireTableDataChanged();
+        pedido.getListaConsum().addConsumision((String) cmbBoxStock.getSelectedItem(), txtCantProd.getText());
+        lblMonto.setText(calcMonto(pedido).toString());
+        model.fireTableDataChanged();
     }//GEN-LAST:event_btnIngresaProdActionPerformed
 
     private void cmbBoxStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxStockActionPerformed
-        
+
     }//GEN-LAST:event_cmbBoxStockActionPerformed
 
 

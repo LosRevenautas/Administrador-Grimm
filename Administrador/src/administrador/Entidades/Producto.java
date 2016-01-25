@@ -6,14 +6,15 @@
 package administrador.Entidades;
 
 import administrador.Entidades.EntidadesAbstractas.Consumision;
-import administrador.Entidades.EntidadesAbstractas.EntidadAbstracta;
 import java.math.BigDecimal;
 
 /**
+ * Es una clase hija de la clase Consumision. Solo agrega la implementacion del
+ * metodo equals que compara los productos por nombre.
  *
  * @author Merlin
  */
-public class Producto extends Consumision{
+public class Producto extends Consumision {
 
     private String nombre;
     private BigDecimal precio;
@@ -22,8 +23,6 @@ public class Producto extends Consumision{
     public Producto(String nombre, String precio, int cantidad) {
         super(nombre, precio, cantidad);
     }
-
-    
 
     @Override
     public boolean equals(Object o) {

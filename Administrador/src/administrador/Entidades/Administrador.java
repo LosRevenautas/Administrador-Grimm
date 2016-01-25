@@ -11,8 +11,6 @@ import administrador.Entidades.EntidadesAbstractas.Usuario;
  *
  * @author Merlin
  */
-public class Administrador extends Usuario{
-    public void printName(){
-        System.out.println("HOLA Q HACE");
-    }
+public class Administrador extends Usuario {
+
 }

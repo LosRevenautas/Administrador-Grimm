@@ -6,13 +6,13 @@
 package administrador.Entidades;
 
 import administrador.Controladores.ControladorPantallas.Listas.ListaConsumision;
-import administrador.Entidades.EntidadesAbstractas.Consumision;
 import administrador.Entidades.EntidadesAbstractas.EntidadAbstracta;
 import java.util.Calendar;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
+ * Clase utilizada para administrar los consumos y estados de una mesa. Almacena
+ * las consumisiones, el moso asignado, el numero de mesa, y la fecha del
+ * pedido.
  *
  * @author Merlin
  */
@@ -25,6 +25,15 @@ public class Pedido extends EntidadAbstracta {
     private String estado;
     ListaConsumision listConsum;
 
+    /**
+     * Crea un pedido con los datos administrados y la fecha de hoy. Crea una
+     * lista de consumisiones para almacenar productos y recetas
+     *
+     * @param idMesa La nesa donde se origino el pedido
+     * @param idMozo El moso que creo el pedido
+     * @param cubiertos La cantidad de comensales en la mesa
+     * @param estado El estado de la mesa
+     */
     public Pedido(byte idMesa, byte idMozo, byte cubiertos, String estado) {
         fecha = Calendar.getInstance();
         this.idMesa = idMesa;

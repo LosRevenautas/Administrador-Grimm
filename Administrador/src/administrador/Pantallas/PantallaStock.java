@@ -11,13 +11,16 @@ import static administrador.Controladores.ControladoresAbstractos.ControladorPan
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 
 /**
+ * Pantalla utilizada para administrar el stock del negocio. Toda su
+ * funcionalidad es controlada por la clase ControladorStock.
  *
  * @author Merlin
  */
 public class PantallaStock extends PantallaAbstracta {
 
     /**
-     * Creates new form PantallaStock
+     * Envia una referencia de la tabla a mostrar y una referencia de la clase
+     * StockTableModel para dibujar la tabla de stock.
      */
     public PantallaStock() {
         initComponents();
@@ -180,7 +183,13 @@ public class PantallaStock extends PantallaAbstracta {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         doCambiar(this, pantallaAnterior);
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    /**
+     * Con los parametros cargados en pantalla llama al metodo de
+     * ControladorStock crearProducto para intentar crear un producto nuevo.
+     * Luego actualiza la tabla
+     *
+     * @param evt
+     */
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (crearProducto(txtNombre.getText(), txtPrecio.getText(), txtCantidad.getText())) {
             model.fireTableDataChanged();
@@ -188,16 +197,29 @@ public class PantallaStock extends PantallaAbstracta {
             //que hacer en caso de que no
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
-
+    /**
+     * cuando se hace click en un producto de la lista muestra sus valores en
+     * los campos de la pantalla.
+     *
+     * @param evt
+     */
     private void tblStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStockMouseClicked
         selectProducto(txtNombre, txtPrecio, txtCantidad, tblStock.getSelectedRow());
     }//GEN-LAST:event_tblStockMouseClicked
-
+    /**
+     * Con un producto seleccionado lo borra de la lista.
+     *
+     * @param evt
+     */
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         borrarProducto(tblStock.getSelectedRow());
         model.fireTableDataChanged();
     }//GEN-LAST:event_btnBorrarActionPerformed
-
+    /**
+     * Modifica los valores del producto seleccionado.
+     *
+     * @param evt
+     */
     private void btnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifActionPerformed
         if (modificarProducto(txtNombre.getText(), txtPrecio.getText(), txtCantidad.getText(), tblStock.getSelectedRow())) {
             model.fireTableDataChanged();
@@ -235,6 +257,7 @@ public class PantallaStock extends PantallaAbstracta {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PantallaStock().setVisible(true);
             }
@@ -256,5 +279,6 @@ public class PantallaStock extends PantallaAbstracta {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
-    private StockTableModel model = new StockTableModel();
+    //Lista de variables personalizadas.
+    private final StockTableModel model = new StockTableModel();
 }

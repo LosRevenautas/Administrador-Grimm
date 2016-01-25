@@ -8,10 +8,13 @@ package administrador.Entidades.EntidadesAbstractas;
 import java.util.Calendar;
 
 /**
+ * Clase padre de todas las clases de usuario. Administra los datos de los mismo
+ * y permite polimorfismo.
  *
  * @author Merlin
  */
-public abstract class Usuario extends EntidadAbstracta{
+public abstract class Usuario extends EntidadAbstracta {
+
     private String nombre;
     private int telefono;
     private String direccion;
@@ -66,6 +69,5 @@ public abstract class Usuario extends EntidadAbstracta{
     public void setPermisos(boolean[] permisos) {
         this.permisos = permisos;
     }
-    
-    
+
 }

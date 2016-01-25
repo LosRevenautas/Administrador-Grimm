@@ -11,6 +11,6 @@ import administrador.Entidades.EntidadesAbstractas.Usuario;
  *
  * @author Merlin
  */
-public class Mozo extends Usuario{
-    
+public class Mozo extends Usuario {
+
 }

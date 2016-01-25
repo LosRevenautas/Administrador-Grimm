@@ -5,11 +5,12 @@
  */
 package administrador.Pantallas;
 
-import administrador.Controladores.ControladorPantallas.ControladorComandas;
 import static administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto.doCambiar;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 
 /**
+ * Pantalla inicial del programa. Permite acceso a todas las otras pantallas
+ * segun los permisos del usuario.
  *
  * @author Merlin
  */
@@ -176,6 +177,7 @@ public class PantallaPrincipal extends PantallaAbstracta {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PantallaPrincipal().setVisible(true);
             }

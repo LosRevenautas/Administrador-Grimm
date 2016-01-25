@@ -11,7 +11,7 @@ import administrador.Entidades.Producto;
 import java.util.ArrayList;
 
 /**
- *
+ * Clase encargada de almacenar todas las listas de objetos.
  * @author Merlin
  */
 public interface Contenedor {

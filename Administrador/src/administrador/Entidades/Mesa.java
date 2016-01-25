@@ -8,12 +8,14 @@ package administrador.Entidades;
 import administrador.Entidades.EntidadesAbstractas.EntidadAbstracta;
 
 /**
+ * Clase que representa la mesa del bar. Almacena el pedido correspondiente a la
+ * misma y permite ver el estado de la mesa.
  *
  * @author Merlin
  */
 public class Mesa extends EntidadAbstracta {
 
-    private int numMesa;
+    private final int numMesa;
     private boolean Ocupada;
     private Pedido pedido;
 

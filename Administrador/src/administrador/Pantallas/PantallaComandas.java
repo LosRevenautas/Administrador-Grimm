@@ -13,15 +13,26 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
+ * Pantalla que representa el menu de comandas. Muestra el numero de mesas
+ * disponibles cargadas en el archivo config.properties. El panel de mesas es
+ * cargado, mostrado y administrado desde la clase ControladorComandas. Esta
+ * pantalla solo aplica el bonton de volver.
  *
  * @author Merlin
  */
 public class PantallaComandas extends PantallaAbstracta {
 
+    //La pantalla se inicializa con referencias a su controladora, la lista de mesas y la lista de pedidos.
     ArrayList<JButton> listMesas = new ArrayList<>();
     ArrayList<Pedido> listPedidos = new ArrayList<>();
     ControladorComandas ctrl = new ControladorComandas();
-    
+
+    /**
+     * En la creacion de la pantalla se llama al metodo initMesas de
+     * ControladorComandas, dandole como referencia esta ventana y el panel que
+     * contendra las mesas. Este metodo creara las mesas en base a la config y
+     * devolvera las mismas en un array
+     */
     public PantallaComandas() {
         initComponents();
         listMesas = ctrl.initMesas(this, jPanel2);
@@ -133,6 +144,7 @@ public class PantallaComandas extends PantallaAbstracta {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PantallaComandas().setVisible(true);
             }
