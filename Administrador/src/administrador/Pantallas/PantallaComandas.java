@@ -22,9 +22,7 @@ import javax.swing.JButton;
  */
 public class PantallaComandas extends PantallaAbstracta {
 
-    //La pantalla se inicializa con referencias a su controladora, la lista de mesas y la lista de pedidos.
-    ArrayList<JButton> listMesas = new ArrayList<>();
-    ArrayList<Pedido> listPedidos = new ArrayList<>();
+    
     ControladorComandas ctrl = new ControladorComandas();
 
     /**
@@ -35,7 +33,7 @@ public class PantallaComandas extends PantallaAbstracta {
      */
     public PantallaComandas() {
         initComponents();
-        listMesas = ctrl.initMesas(this, jPanel2);
+        ctrl.initMesas(this, jPanel2);
     }
 
     /**

@@ -7,6 +7,7 @@ package administrador.Entidades;
 
 import administrador.Entidades.EntidadesAbstractas.Consumision;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * Es una clase hija de la clase Consumision. Solo agrega la implementacion del
@@ -26,11 +27,20 @@ public class Producto extends Consumision {
 
     @Override
     public boolean equals(Object o) {
-        if (this.getNombre().equals(((Producto) o).getNombre())) {
-            return true;
-        } else {
-            return false;
+        if(o instanceof Producto){
+        return this.getNombre().equalsIgnoreCase(((Producto) o).getNombre());
         }
+        else{
+        return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.nombre);
+        hash = 37 * hash + Objects.hashCode(this.precio);
+        return hash;
     }
 
 }

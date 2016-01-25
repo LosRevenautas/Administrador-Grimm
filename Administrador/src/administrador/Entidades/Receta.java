@@ -9,8 +9,6 @@ import administrador.Controladores.ControladorPantallas.Listas.ListaProductos;
 import administrador.Entidades.EntidadesAbstractas.Consumision;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Clase hija de Consumision. Representa una receta o plato de comida. Añade una

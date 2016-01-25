@@ -32,8 +32,8 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     private final ReadPropertie reader = new ReadPropertie();
     private PantallaAbstracta comandas;
     private int numMesas = 0;
-    private javax.swing.JPanel pnlMesas;
-    GridLayout pnl2Layout = new GridLayout(5, 4);
+    private JPanel pnlMesas;
+    GridLayout pnlMesasLayout = new GridLayout(5, 4);
     ArrayList<JButton> listBtnMesas;
     JPanel panelHabilitar = new JPanel();
     GridLayout layoutHabilitar = new GridLayout(1, 2);
@@ -55,15 +55,15 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
      *
      * @param comandas la instancia de la pantalla comandas
      * @param panelMesas el panel que albergara las mesas
-     * @return ArrayList de JButtons creados para representar las mesas.
+     *
      */
-    public ArrayList<JButton> initMesas(PantallaAbstracta comandas, JPanel panelMesas) {
+    public void initMesas(PantallaAbstracta comandas, JPanel panelMesas) {
         numMesas = Integer.valueOf(reader.getPropertie("numMesas"));
         listBtnMesas = new ArrayList<>(numMesas);
         this.comandas = comandas;
-        panelMesas.setLayout(pnl2Layout);
-        pnl2Layout.setHgap(10);
-        pnl2Layout.setVgap(10);
+        panelMesas.setLayout(pnlMesasLayout);
+        pnlMesasLayout.setHgap(10);
+        pnlMesasLayout.setVgap(10);
         for (int i = 0; i < numMesas; i++) {
             listBtnMesas.add(new JButton("" + i));
             panelMesas.add(listBtnMesas.get(i));
@@ -76,7 +76,6 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
             });
         }
         comandas.pack();
-        return listBtnMesas;
     }
 
     /**
@@ -131,8 +130,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
                     pnlPedidos.setPedido(pedidoActual);
                     btnClick.setBackground(Color.GREEN);
                 } catch (NumberFormatException ext) {
-                    //A completar la respuesta a la excepcion
-                    ext.printStackTrace();
+                //pendiente a implementar
                 }
 
             } else {
