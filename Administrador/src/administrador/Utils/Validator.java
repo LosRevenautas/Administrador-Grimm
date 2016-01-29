@@ -39,7 +39,7 @@ public class Validator {
      * incorrecto, "malNum" si el string no es un numero y "vacio" si es null o
      * "";
      */
-    public static String validarInt(String str, String tipo) {
+    public static String validarNum(String str, String tipo) {
         try {
             if (validarString(str).equals("vacio")) {
                 return "vacio";

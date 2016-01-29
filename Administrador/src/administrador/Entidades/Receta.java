@@ -43,11 +43,11 @@ public class Receta extends Consumision {
         return this.calcPrecioReceta();
     }
 
-    public void addProducto(Producto producto, int cantidad) {
+    public void addProducto(Producto producto, float cantidad) {
         listProd.addProducto(producto, cantidad);
     }
 
-    public void delProducto(Producto producto, int cant) {
+    public void delProducto(Producto producto, float cant) {
         listProd.delProducto(producto, cant);
     }
 
@@ -63,7 +63,7 @@ public class Receta extends Consumision {
         total = total.setScale(2, RoundingMode.UP);
         BigDecimal multiplicand;
         Producto prod;
-        int cant;
+        float cant;
         for (int i = 0; i < listProd.getSize(); i++) {
             prod = listProd.getProducto(i);
             cant = listProd.getCantidad(i);

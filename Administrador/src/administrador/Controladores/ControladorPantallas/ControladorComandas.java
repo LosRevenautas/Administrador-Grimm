@@ -10,7 +10,8 @@ import administrador.Entidades.EntidadesAbstractas.Consumision;
 import administrador.Entidades.EntidadesAbstractas.Contenedor;
 import administrador.Entidades.Mesa;
 import administrador.Entidades.Pedido;
-import administrador.Pantallas.Paneles.CargaPedidos;
+import administrador.Pantallas.Paneles.DialogAbrirMesa;
+import administrador.Pantallas.Paneles.IngresarPedidos;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
 import administrador.Utils.ReadPropertie;
 import java.awt.Color;
@@ -35,18 +36,12 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     private JPanel pnlMesas;
     GridLayout pnlMesasLayout = new GridLayout(5, 4);
     ArrayList<JButton> listBtnMesas;
-    JPanel panelHabilitar = new JPanel();
-    GridLayout layoutHabilitar = new GridLayout(1, 2);
-    JLabel descripcion = new JLabel("Seleccionar: ");
-    JLabel moso = new JLabel("Moso: ");
-    JLabel cubierto = new JLabel("Cubiertos: ");
-    JTextField txtMoso = new JTextField();
-    JTextField txtCubiertos = new JTextField();
     int eleccion;
     int numMoso;
     int numCubiertos;
-    private final CargaPedidos pnlPedidos = new CargaPedidos();
+    IngresarPedidos pnlPedidos;
     Pedido pedidoActual;
+    DialogAbrirMesa dialogAbrirMesa;
 
     /**
      * Setea las mesas configuradas en config.properties. Inicializa el panel y
@@ -57,6 +52,8 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
      * @param panelMesas el panel que albergara las mesas
      *
      */
+    public void crearPedido(){}
+    
     public void initMesas(PantallaAbstracta comandas, JPanel panelMesas) {
         numMesas = Integer.valueOf(reader.getPropertie("numMesas"));
         listBtnMesas = new ArrayList<>(numMesas);
@@ -92,55 +89,29 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
      * @param evt
      */
     public void onClick(ActionEvent evt) {
-        //boton apretado
         JButton btnClick = (JButton) evt.getSource();
         Mesa clickedMesa = Contenedor.LISTMESA.get(Integer.valueOf(btnClick.getText()));
-        //verifica si la mesa esta ocupada
-        if (clickedMesa.isOcupada()) {
-            //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
+        if(clickedMesa.isOcupada()){
+        //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
             pedidoActual = clickedMesa.getPedido();
+            pnlPedidos = new IngresarPedidos(comandas, true);
             pnlPedidos.setTextMesa(String.valueOf(pedidoActual.getIdMesa()));
             pnlPedidos.setTextMozo(String.valueOf(pedidoActual.getIdMozo()));
             pnlPedidos.setTextCubierto(String.valueOf(pedidoActual.getCubiertos()));
             pnlPedidos.setPedido(pedidoActual);
-            JOptionPane.showMessageDialog(comandas, pnlPedidos, "Modificar mesa", JOptionPane.PLAIN_MESSAGE);
-            //si la mesa esta vacia muestra ventana para habilitarla
-        } else {
-            layoutHabilitar.setHgap(10);
-            layoutHabilitar.setVgap(10);
-            panelHabilitar.setLayout(layoutHabilitar);
-            panelHabilitar.add(descripcion);
-            panelHabilitar.add(moso);
-            panelHabilitar.add(txtMoso);
-            panelHabilitar.add(cubierto);
-            panelHabilitar.add(txtCubiertos);
-
-            eleccion = JOptionPane.showOptionDialog(comandas, panelHabilitar, "Habilitar Mesa", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-            //si se habilita la mesa se la marca como ocupada, se crea el pedido correspondiente con los datos de la mesa, el mozo y los cubiertos
-            //
-            if (eleccion
-                    == 0) {
-                try {
-                    clickedMesa.setOcupada(true);
-                    numMoso = Integer.valueOf(txtMoso.getText());
-                    numCubiertos = Integer.valueOf(txtCubiertos.getText());
-                    pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, "Habilitada");
-                    Contenedor.LISTPEDIDO.add(pedidoActual);
-                    clickedMesa.setPedido(pedidoActual);
-                    pnlPedidos.setPedido(pedidoActual);
-                    btnClick.setBackground(Color.GREEN);
-                } catch (NumberFormatException ext) {
-                //pendiente a implementar
-                }
-
-            } else {
-                //no hacer nada
-            }
-
+            pnlPedidos.setVisible(true);
         }
-
+        else{
+            dialogAbrirMesa = new DialogAbrirMesa(comandas, true);
+            dialogAbrirMesa.setVisible(true);
+            dialogAbrirMesa.setMesa(clickedMesa);
+            pnlPedidos = new IngresarPedidos(comandas, true);
+        }
     }
-
+        public static void abrirMesa(Mesa clickedMesa, int numMoso, int numCubiertos){
+        clickedMesa.setOcupada(true);
+        pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, "Habilitada");
+        }
     /**
      * Dado un pedido calcula la sumatoria del valor de todas las consumisiones
      * del mismo con una presicion de 2 decimales y redondeo hacia arriba.
@@ -153,7 +124,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
         total = total.setScale(2, RoundingMode.UP);
         BigDecimal multiplicand;
         Consumision consum;
-        int cant;
+        float cant;
         for (int i = 0; i < pedido.getListaConsum().getListConsum().size(); i++) {
             consum = pedido.getListaConsum().getConsumision(i);
             cant = pedido.getListaConsum().getCantidad(i);

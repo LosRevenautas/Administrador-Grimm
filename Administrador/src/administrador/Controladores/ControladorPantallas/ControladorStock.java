@@ -29,10 +29,10 @@ public class ControladorStock extends ControladorPantallaAbstracto {
      */
     public static boolean crearProducto(String nombre, String precio, String cantidad) {
         try {
-            int cantEnInt = Integer.valueOf(cantidad);
+            float cantEnFloat = Float.valueOf(cantidad);
             if (!(nombre == null || nombre.equals("")) && !(precio == null || precio.equals(""))) {
 
-                Producto nuevoProducto = new Producto(nombre, precio, cantEnInt);
+                Producto nuevoProducto = new Producto(nombre, precio, cantEnFloat);
                 if (!(Contenedor.LISTPRODUCTO.contains(nuevoProducto))) {
                     Contenedor.LISTPRODUCTO.add(nuevoProducto);
                     return true;
@@ -78,11 +78,11 @@ public class ControladorStock extends ControladorPantallaAbstracto {
             return false;
         }
         try {
-            int cantEnInt = Integer.valueOf(cantidad);
+            float cantEnFloat = Float.valueOf(cantidad);
             if (!(nombre == null || nombre.equals("")) && !(precio == null || precio.equals(""))) {
                 Contenedor.LISTPRODUCTO.get(producto).setNombre(nombre);
                 Contenedor.LISTPRODUCTO.get(producto).setPrecio(precio);
-                Contenedor.LISTPRODUCTO.get(producto).setCantidad(cantEnInt);
+                Contenedor.LISTPRODUCTO.get(producto).setCantidad(cantEnFloat);
                 return true;
             } else {
                 return false;

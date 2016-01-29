@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ListaConsumision {
 
     ArrayList<Consumision> listConsum;
-    ArrayList<Integer> listCantidad;
+    ArrayList<Float> listCantidad;
 
     public ArrayList<Consumision> getListConsum() {
         return listConsum;
@@ -28,11 +28,11 @@ public class ListaConsumision {
         this.listConsum = listConsum;
     }
 
-    public ArrayList<Integer> getListCantidad() {
+    public ArrayList<Float> getListCantidad() {
         return listCantidad;
     }
 
-    public void setListCantidad(ArrayList<Integer> listCantidad) {
+    public void setListCantidad(ArrayList<Float> listCantidad) {
         this.listCantidad = listCantidad;
     }
 
@@ -61,7 +61,7 @@ public class ListaConsumision {
      * queremos determinar
      * @return Un objeto Integer con el valor de la consumicion en la posicion i
      */
-    public Integer getCantidad(int i) {
+    public Float getCantidad(int i) {
         return listCantidad.get(i);
     }
 
@@ -75,12 +75,12 @@ public class ListaConsumision {
      * @param consumision La consumision a agregar o modificar
      * @param cantidad La cantida de la consumision a agregar.
      */
-    public synchronized void addConsumision(Consumision consumision, int cantidad) {
+    public synchronized void addConsumision(Consumision consumision, float cantidad) {
         if (!(listConsum.contains(consumision))) {
             listConsum.add(consumision);
             listCantidad.add(cantidad);
         } else {
-            Integer cantActual = listCantidad.get(listConsum.indexOf(consumision)) + cantidad;
+            Float cantActual = listCantidad.get(listConsum.indexOf(consumision)) + cantidad;
             listCantidad.set(listConsum.indexOf(consumision), cantActual);
         }
     }
@@ -99,7 +99,7 @@ public class ListaConsumision {
      */
     public synchronized void addConsumision(String nombConsumision, String strCantidad) {
         try {
-            int cantidad = Integer.valueOf(strCantidad);
+            float cantidad = Float.valueOf(strCantidad);
             Consumision consumision = null;
             for (Consumision tempConsum : Contenedor.LISTPRODUCTO) {
                 if (tempConsum.getNombre().equals(nombConsumision)) {
@@ -112,7 +112,7 @@ public class ListaConsumision {
                 listConsum.add(consumision);
                 listCantidad.add(cantidad);
             } else {
-                Integer cantActual = listCantidad.get(listConsum.indexOf(consumision)) + cantidad;
+                Float cantActual = listCantidad.get(listConsum.indexOf(consumision)) + cantidad;
                 listCantidad.set(listConsum.indexOf(consumision), cantActual);
             }
         } catch (NumberFormatException e) {

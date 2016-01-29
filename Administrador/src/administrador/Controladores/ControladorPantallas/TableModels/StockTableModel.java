@@ -40,7 +40,6 @@ public class StockTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int i, int i1) {
-
         switch (i1) {
             case 0:
                 return Contenedor.LISTPRODUCTO.get(i).getNombre();

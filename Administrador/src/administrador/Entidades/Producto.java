@@ -19,9 +19,9 @@ public class Producto extends Consumision {
 
     private String nombre;
     private BigDecimal precio;
-    private int cantidad;
+    private float cantidad;
 
-    public Producto(String nombre, String precio, int cantidad) {
+    public Producto(String nombre, String precio, float cantidad) {
         super(nombre, precio, cantidad);
     }
 

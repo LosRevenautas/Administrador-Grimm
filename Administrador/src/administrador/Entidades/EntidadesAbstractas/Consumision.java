@@ -17,20 +17,20 @@ public class Consumision extends EntidadAbstracta {
 
     private String nombre;
     private BigDecimal precio;
-    private int cantidad;
+    private float cantidad;
 
-    public Consumision(String nombre, String precio, int cantidad) {
+    public Consumision(String nombre, String precio, float cantidad) {
         this.nombre = nombre;
         this.precio = new BigDecimal(precio);
         this.precio = this.precio.setScale(2, RoundingMode.UP);
         this.cantidad = cantidad;
     }
 
-    public int getCantidad() {
+    public float getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(float cantidad) {
         this.cantidad = cantidad;
     }
 

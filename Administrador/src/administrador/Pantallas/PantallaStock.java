@@ -9,6 +9,9 @@ import static administrador.Controladores.ControladorPantallas.ControladorStock.
 import administrador.Controladores.ControladorPantallas.TableModels.StockTableModel;
 import static administrador.Controladores.ControladoresAbstractos.ControladorPantallaAbstracto.doCambiar;
 import administrador.Pantallas.PantallasAbstractas.PantallaAbstracta;
+import static administrador.Utils.Validator.validarNombre;
+import static administrador.Utils.Validator.validarNum;
+import java.awt.Color;
 
 /**
  * Pantalla utilizada para administrar el stock del negocio. Toda su
@@ -36,28 +39,23 @@ public class PantallaStock extends PantallaAbstracta {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVolver = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblStock = new javax.swing.JTable();
         pnlABM = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblCant = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnModif = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
+        setTitle("Stock");
 
         tblStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -76,11 +74,11 @@ public class PantallaStock extends PantallaAbstracta {
 
         pnlABM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("Nombre");
+        lblNombre.setText("Nombre");
 
-        jLabel2.setText("Cantidad");
+        lblCant.setText("Cantidad");
 
-        jLabel3.setText("Precio");
+        lblPrecio.setText("Precio");
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +88,7 @@ public class PantallaStock extends PantallaAbstracta {
         });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.setNextFocusableComponent(btnVolver);
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -111,17 +110,17 @@ public class PantallaStock extends PantallaAbstracta {
                 .addContainerGap()
                 .addGroup(pnlABMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNombre)
-                    .addComponent(jLabel1)
+                    .addComponent(lblNombre)
                     .addComponent(btnModif))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlABMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlABMLayout.createSequentialGroup()
                         .addGroup(pnlABMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(lblPrecio))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlABMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lblCant)
                             .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlABMLayout.createSequentialGroup()
                         .addComponent(btnNuevo)
@@ -134,9 +133,9 @@ public class PantallaStock extends PantallaAbstracta {
             .addGroup(pnlABMLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlABMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(lblPrecio)
+                    .addComponent(lblCant))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlABMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,6 +149,30 @@ public class PantallaStock extends PantallaAbstracta {
                 .addContainerGap())
         );
 
+        btnVolver.setText("Volver");
+        btnVolver.setNextFocusableComponent(txtNombre);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnVolver))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,14 +180,11 @@ public class PantallaStock extends PantallaAbstracta {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnVolver))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(pnlABM, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnlABM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +193,7 @@ public class PantallaStock extends PantallaAbstracta {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVolver)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -191,10 +211,21 @@ public class PantallaStock extends PantallaAbstracta {
      * @param evt
      */
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        lblNombre.setForeground(Color.black);
+        lblPrecio.setForeground(Color.black);
+        lblCant.setForeground(Color.black);
         if (crearProducto(txtNombre.getText(), txtPrecio.getText(), txtCantidad.getText())) {
             model.fireTableDataChanged();
         } else {
-            //que hacer en caso de que no
+            if (!(validarNombre(txtNombre.getText()).equals("ok"))) {
+                lblNombre.setForeground(Color.red);
+            }
+            if (!(validarNum(txtPrecio.getText(), "double").equals("ok"))) {
+                lblPrecio.setForeground(Color.red);
+            }
+            if (!(validarNum(txtCantidad.getText(), "double").equals("ok"))) {
+                lblCant.setForeground(Color.red);
+            }
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
     /**
@@ -269,10 +300,11 @@ public class PantallaStock extends PantallaAbstracta {
     private javax.swing.JButton btnModif;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblCant;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblPrecio;
     private javax.swing.JPanel pnlABM;
     private javax.swing.JTable tblStock;
     private javax.swing.JTextField txtCantidad;

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ListaProductos {
 
     ArrayList<Producto> listProd;
-    ArrayList<Integer> listCantidad;
+    ArrayList<Float> listCantidad;
 
     public ArrayList<Producto> getListProd() {
         return listProd;
@@ -28,11 +28,11 @@ public class ListaProductos {
         this.listProd = listConsum;
     }
 
-    public ArrayList<Integer> getListCantidad() {
+    public ArrayList<Float> getListCantidad() {
         return listCantidad;
     }
 
-    public void setListCantidad(ArrayList<Integer> listCantidad) {
+    public void setListCantidad(ArrayList<Float> listCantidad) {
         this.listCantidad = listCantidad;
     }
 
@@ -61,7 +61,7 @@ public class ListaProductos {
      * determinar
      * @return Un objeto Integer con el valor de el producto en la posicion i
      */
-    public Integer getCantidad(int i) {
+    public Float getCantidad(int i) {
         return listCantidad.get(i);
     }
 
@@ -75,12 +75,12 @@ public class ListaProductos {
      * @param producto El producto a agregar o modificar
      * @param cantidad La cantida del producto a agregar.
      */
-    public synchronized void addProducto(Producto producto, int cantidad) {
+    public synchronized void addProducto(Producto producto, float cantidad) {
         if (!(listProd.contains(producto))) {
             listProd.add(producto);
             listCantidad.add(cantidad);
         } else {
-            Integer cantActual = listCantidad.get(listProd.indexOf(producto)) + cantidad;
+            Float cantActual = listCantidad.get(listProd.indexOf(producto)) + cantidad;
             listCantidad.set(listProd.indexOf(producto), cantActual);
         }
     }
@@ -99,7 +99,7 @@ public class ListaProductos {
      */
     public synchronized void addProducto(String nombProducto, String strCantidad) {
         try {
-            int cantidad = Integer.valueOf(strCantidad);
+            float cantidad = Float.valueOf(strCantidad);
             Producto producto = null;
             for (Producto tempProd : Contenedor.LISTPRODUCTO) {
                 if (tempProd.getNombre().equals(nombProducto)) {
@@ -112,7 +112,7 @@ public class ListaProductos {
                 listProd.add(producto);
                 listCantidad.add(cantidad);
             } else {
-                Integer cantActual = listCantidad.get(listProd.indexOf(producto)) + cantidad;
+                Float cantActual = listCantidad.get(listProd.indexOf(producto)) + cantidad;
                 listCantidad.set(listProd.indexOf(producto), cantActual);
             }
         } catch (NumberFormatException e) {
@@ -127,7 +127,7 @@ public class ListaProductos {
      * @param producto El producto a borrar.
      * @param cantidad La cantidad de producto a remover.
      */
-    public synchronized void delProducto(Producto producto, int cantidad) {
+    public synchronized void delProducto(Producto producto, float cantidad) {
 
         for (int i = 0; i < listProd.size(); i++) {
             if (listProd.get(i).getNombre().equals(producto.getNombre())) {
