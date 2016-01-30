@@ -5,21 +5,37 @@
  */
 package administrador.Pantallas.Paneles;
 
+import administrador.Controladores.ControladorPantallas.ControladorComandas;
 import static administrador.Controladores.ControladorPantallas.ControladorComandas.calcMonto;
 import administrador.Controladores.ControladorPantallas.TableModels.prodTableModel;
 import administrador.Entidades.EntidadesAbstractas.Contenedor;
 import administrador.Entidades.Pedido;
 import static administrador.Utils.Validator.validarNum;
 import java.awt.Color;
+import javax.swing.JButton;
+
 /**
  *
  * @author Merlin
  */
 public class IngresarPedidos extends javax.swing.JDialog {
+
     prodTableModel model = new prodTableModel();
-    Pedido pedido;  
+    Pedido pedido;
+    ControladorComandas comandas;
+    private final String ESTADO_MESA_HABILITADA = "Habilitada";
+    private final String ESTADO_MESA_ESPERANDO = "Esperando";
+    private final String ESTADO_MESA_COMIENDO = "Comiendo";
+    private final String ESTADO_MESA_PAGADO = "Pagado";
+    private final String ESTADO_MESA_LIBRE = "Libre";
+    private final String VALIDAR_STRING_OK = "ok";
+    private final String NUM_TYPE_DOUBLE = "double";
+    private final String BTN_ESTADO_COMIDA = "Comida";
+    private final String BTN_ESTADO_COBRAR = "Cobrar";
+
     /**
      * Creates new form IngresarPedidos
+     *
      * @param parent
      * @param modal
      */
@@ -27,11 +43,8 @@ public class IngresarPedidos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocation(this.getParent().getLocation());
-        tblProductos.setModel(model);
-    }
-    
 
-    
+    }
 
     /**
      * Asigna un pedido a este panel para ser administrado. Añade el pedido al
@@ -39,10 +52,17 @@ public class IngresarPedidos extends javax.swing.JDialog {
      * productos disponibles en stock.
      *
      * @param pedido El pedido a ser mostrado por el panel
+     * @param comandas El controlador que llamo a esta ventana
      */
-    public void setPedido(Pedido pedido) {
-        model.setSelecPedido(pedido);
+    public void setPedido(Pedido pedido, ControladorComandas comandas) {
+        this.comandas = comandas;
         this.pedido = pedido;
+        model.setSelecPedido(pedido);
+        tblProductos.setModel(model);
+        lblEstado.setText(pedido.getEstado());
+        if (pedido.getEstado().equals(ESTADO_MESA_HABILITADA)) {
+            btnCambEstado.setVisible(false);
+        }
         cmbBoxStock.removeAllItems();
         for (int i = 0; i < Contenedor.LISTPRODUCTO.size(); i++) {
             cmbBoxStock.addItem(Contenedor.LISTPRODUCTO.get(i).getNombre());
@@ -103,6 +123,7 @@ public class IngresarPedidos extends javax.swing.JDialog {
         txtCantProd = new javax.swing.JTextField();
         lblCant = new javax.swing.JLabel();
         btnOk = new javax.swing.JButton();
+        btnCambEstado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -163,6 +184,13 @@ public class IngresarPedidos extends javax.swing.JDialog {
             }
         });
 
+        btnCambEstado.setText("Comida");
+        btnCambEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,14 +200,9 @@ public class IngresarPedidos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnIngresaProd)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmbBoxStock, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblCant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtCantProd)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -197,14 +220,25 @@ public class IngresarPedidos extends javax.swing.JDialog {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblMonto)))))
-                        .addGap(0, 19, Short.MAX_VALUE))
+                                        .addComponent(lblMonto))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cmbBoxStock, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblCant)
+                                        .addGap(0, 32, Short.MAX_VALUE))
+                                    .addComponent(txtCantProd))))
+                        .addGap(27, 27, 27))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblEstado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnOk)))
+                        .addComponent(btnOk))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCambEstado)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -222,9 +256,9 @@ public class IngresarPedidos extends javax.swing.JDialog {
                     .addComponent(lblCubierto)
                     .addComponent(jLabel7)
                     .addComponent(lblMonto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(13, 13, 13)
                 .addComponent(lblCant)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbBoxStock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCantProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,7 +271,9 @@ public class IngresarPedidos extends javax.swing.JDialog {
                     .addComponent(jLabel9)
                     .addComponent(lblEstado)
                     .addComponent(btnOk))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCambEstado)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,8 +281,9 @@ public class IngresarPedidos extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,13 +297,19 @@ public class IngresarPedidos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresaProdActionPerformed
-        if (validarNum(txtCantProd.getText(), "double").equals("ok")) {
+        if (validarNum(txtCantProd.getText(), NUM_TYPE_DOUBLE).equals(VALIDAR_STRING_OK)) {
             pedido.getListaConsum().addConsumision((String) cmbBoxStock.getSelectedItem(), txtCantProd.getText());
             lblMonto.setText(calcMonto(pedido).toString());
             model.fireTableDataChanged();
             lblCant.setForeground(Color.black);
         } else {
             lblCant.setForeground(Color.red);
+        }
+        if (lblEstado.getText().equals(ESTADO_MESA_HABILITADA)) {
+            lblEstado.setText(ESTADO_MESA_ESPERANDO);
+            pedido.setEstado(ESTADO_MESA_ESPERANDO);
+            comandas.cambiarEstadoMesa(pedido.getIdMesa(), ESTADO_MESA_ESPERANDO);
+            btnCambEstado.setVisible(true);
         }
     }//GEN-LAST:event_btnIngresaProdActionPerformed
 
@@ -277,6 +320,22 @@ public class IngresarPedidos extends javax.swing.JDialog {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnCambEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambEstadoActionPerformed
+        if (lblEstado.getText().equals(ESTADO_MESA_ESPERANDO)) {
+            lblEstado.setText(ESTADO_MESA_COMIENDO);
+            pedido.setEstado(ESTADO_MESA_COMIENDO);
+            comandas.cambiarEstadoMesa(pedido.getIdMesa(), ESTADO_MESA_COMIENDO);
+            btnCambEstado.setText(BTN_ESTADO_COBRAR);
+            //btnCambEstado.setVisible(false);
+        }
+        if(pedido.getEstado().equals(ESTADO_MESA_COMIENDO)){
+                pedido.setEstado(ESTADO_MESA_COMIENDO);
+                Contenedor.LISTMESA.get(pedido.getIdMesa()).setOcupada(false);
+                comandas.cambiarEstadoMesa(pedido.getIdMesa(), ESTADO_MESA_LIBRE);
+                this.dispose();
+            }
+    }//GEN-LAST:event_btnCambEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,6 +381,7 @@ public class IngresarPedidos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCambEstado;
     private javax.swing.JButton btnIngresaProd;
     private javax.swing.JButton btnOk;
     private javax.swing.JComboBox<String> cmbBoxStock;

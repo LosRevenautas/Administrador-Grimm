@@ -15,7 +15,7 @@ import administrador.Entidades.EntidadesAbstractas.EntidadAbstracta;
  */
 public class Mesa extends EntidadAbstracta {
 
-    private final int numMesa;
+    private final byte numMesa;
     private boolean Ocupada;
     private Pedido pedido;
 
@@ -27,12 +27,12 @@ public class Mesa extends EntidadAbstracta {
         this.pedido = pedido;
     }
 
-    public Mesa(int numMesa) {
+    public Mesa(byte numMesa) {
         this.numMesa = numMesa;
         Ocupada = false;
     }
 
-    public int getNumMesa() {
+    public byte getNumMesa() {
         return numMesa;
     }
 

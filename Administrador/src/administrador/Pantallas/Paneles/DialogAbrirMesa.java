@@ -5,7 +5,8 @@
  */
 package administrador.Pantallas.Paneles;
 
-import static administrador.Controladores.ControladorPantallas.ControladorComandas.abrirMesa;
+import administrador.Controladores.ControladorPantallas.ControladorComandas;
+
 import administrador.Entidades.Mesa;
 import static administrador.Utils.Validator.validarNum;
 import java.awt.Color;
@@ -17,18 +18,19 @@ import java.awt.Color;
 public class DialogAbrirMesa extends javax.swing.JDialog {
 
     Mesa clickedMesa;
-
+    ControladorComandas ctrlComandas;
     /**
      * Creates new form DialogAbrirMesa
      */
     public DialogAbrirMesa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-
+        this.setLocation(this.getParent().getLocation());
         initComponents();
     }
 
-    public void setMesa(Mesa clickedMesa) {
+    public void setDialog(Mesa clickedMesa, ControladorComandas ctrlComandas) {
         this.clickedMesa = clickedMesa;
+        this.ctrlComandas = ctrlComandas;
     }
 
     /**
@@ -62,6 +64,11 @@ public class DialogAbrirMesa extends javax.swing.JDialog {
         });
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,12 +136,17 @@ public class DialogAbrirMesa extends javax.swing.JDialog {
             lblCubiertos.setForeground(Color.red);
         }
         else{
-        abrirMesa(clickedMesa,Integer.valueOf(txtMozo.getText()), Integer.valueOf(txtMozo.getText()));
+        ctrlComandas.abrirMesa(clickedMesa, Integer.valueOf(txtMozo.getText()), Integer.valueOf(txtCubiertos.getText()));
         lblMozo.setForeground(Color.black);
         lblCubiertos.setForeground(Color.black);
+        this.dispose();
         }
         
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments

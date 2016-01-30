@@ -31,6 +31,11 @@ import javax.swing.*;
 public class ControladorComandas extends ControladorPantallaAbstracto {
 
     private final ReadPropertie reader = new ReadPropertie();
+    private final String ESTADO_MESA_LIBRE = "Libre";
+    private final String ESTADO_MESA_HABILITADA = "Habilitada";
+    private final String ESTADO_MESA_ESPERANDO = "Esperando";
+    private final String ESTADO_MESA_COMIENDO = "Comiendo";
+
     private PantallaAbstracta comandas;
     private int numMesas = 0;
     private JPanel pnlMesas;
@@ -42,6 +47,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
     IngresarPedidos pnlPedidos;
     Pedido pedidoActual;
     DialogAbrirMesa dialogAbrirMesa;
+    Mesa clickedMesa;
 
     /**
      * Setea las mesas configuradas en config.properties. Inicializa el panel y
@@ -52,8 +58,9 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
      * @param panelMesas el panel que albergara las mesas
      *
      */
-    public void crearPedido(){}
-    
+    public void crearPedido() {
+    }
+
     public void initMesas(PantallaAbstracta comandas, JPanel panelMesas) {
         numMesas = Integer.valueOf(reader.getPropertie("numMesas"));
         listBtnMesas = new ArrayList<>(numMesas);
@@ -61,7 +68,7 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
         panelMesas.setLayout(pnlMesasLayout);
         pnlMesasLayout.setHgap(10);
         pnlMesasLayout.setVgap(10);
-        for (int i = 0; i < numMesas; i++) {
+        for (byte i = 0; i < numMesas; i++) {
             listBtnMesas.add(new JButton("" + i));
             panelMesas.add(listBtnMesas.get(i));
             Contenedor.LISTMESA.add(new Mesa(i));
@@ -90,28 +97,52 @@ public class ControladorComandas extends ControladorPantallaAbstracto {
      */
     public void onClick(ActionEvent evt) {
         JButton btnClick = (JButton) evt.getSource();
-        Mesa clickedMesa = Contenedor.LISTMESA.get(Integer.valueOf(btnClick.getText()));
-        if(clickedMesa.isOcupada()){
-        //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
+        clickedMesa = Contenedor.LISTMESA.get(Integer.valueOf(btnClick.getText()));
+        if (clickedMesa.isOcupada()) {
+            //obtiene el pedido asignado a la mesa y muestra el panel con los datos del mismo para agregar productos
             pedidoActual = clickedMesa.getPedido();
             pnlPedidos = new IngresarPedidos(comandas, true);
+            pnlPedidos.setPedido(pedidoActual, this);
             pnlPedidos.setTextMesa(String.valueOf(pedidoActual.getIdMesa()));
             pnlPedidos.setTextMozo(String.valueOf(pedidoActual.getIdMozo()));
             pnlPedidos.setTextCubierto(String.valueOf(pedidoActual.getCubiertos()));
-            pnlPedidos.setPedido(pedidoActual);
             pnlPedidos.setVisible(true);
-        }
-        else{
+        } else {
             dialogAbrirMesa = new DialogAbrirMesa(comandas, true);
+            dialogAbrirMesa.setDialog(clickedMesa, this);
             dialogAbrirMesa.setVisible(true);
-            dialogAbrirMesa.setMesa(clickedMesa);
-            pnlPedidos = new IngresarPedidos(comandas, true);
+
         }
     }
-        public static void abrirMesa(Mesa clickedMesa, int numMoso, int numCubiertos){
+
+    public void abrirMesa(Mesa clickedMesa, int numMoso, int numCubiertos) {
+        pnlPedidos = new IngresarPedidos(comandas, true);
         clickedMesa.setOcupada(true);
-        pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, "Habilitada");
+        pedidoActual = new Pedido((byte) clickedMesa.getNumMesa(), (byte) numMoso, (byte) numCubiertos, ESTADO_MESA_HABILITADA);
+        clickedMesa.setPedido(pedidoActual);
+        pnlPedidos.setPedido(pedidoActual, this);
+        cambiarEstadoMesa(clickedMesa.getNumMesa(), ESTADO_MESA_HABILITADA);
+    }
+
+    public void cambiarEstadoMesa(byte numMesa, String estado) {
+        switch (estado) {
+            case ESTADO_MESA_HABILITADA:
+                listBtnMesas.get(clickedMesa.getNumMesa()).setBackground(Color.CYAN);
+                break;
+            case ESTADO_MESA_ESPERANDO:
+                listBtnMesas.get(clickedMesa.getNumMesa()).setBackground(Color.yellow);
+                break;
+            case ESTADO_MESA_COMIENDO:
+                listBtnMesas.get(clickedMesa.getNumMesa()).setBackground(Color.green);
+                break;
+            case ESTADO_MESA_LIBRE:
+                listBtnMesas.get(clickedMesa.getNumMesa()).setBackground(Color.DARK_GRAY);
+                break;
+            default:
+                listBtnMesas.get(clickedMesa.getNumMesa()).setBackground(Color.black);
         }
+    }
+
     /**
      * Dado un pedido calcula la sumatoria del valor de todas las consumisiones
      * del mismo con una presicion de 2 decimales y redondeo hacia arriba.
